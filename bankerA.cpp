@@ -114,7 +114,9 @@ int main(int argc, char *argv[]) {
         inFile >> avail[i];
     }
 
-    isSafe(proc, max, alloc, avail);
+    if (!isSafe(proc, max, alloc, avail)) {
+        std::cout << "System is not in a safe state." << std::endl;
+    }
     
     inFile.close();
 
