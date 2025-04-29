@@ -1,4 +1,5 @@
 #include <iostream>
+#include <fstream>
 
 const int P = 5; //num of processes
 const int R = 3; //num of resources
@@ -53,28 +54,74 @@ bool isSafe(int proc[], int max[][R], int alloc[][R], int avail[]) {
     return true;
 }
 
-int main() {
+int main(int argc, char *argv[]) {
 
-    int proc[] = {0, 1, 2, 3, 4};   // Names of processes
+    if (argc != 2) {
+        std::cerr << "Input file. Now.\n";
+        return 1;
+    }
 
-    int max[P][R] = {
-        {7, 5, 3}, 
-        {3, 2, 2}, 
-        {9, 0, 2}, 
-        {2, 2, 2}, 
-        {4, 3, 3} };
+    std::ifstream inFile(argv[1]);
 
-    int alloc[P][R] = { 
-        {0, 1, 0}, 
-        {2, 0, 0}, 
-        {3, 0, 2}, 
-        {2, 1, 1}, 
-        {0, 0, 2} };
+    if (!inFile) {
+        std::cerr << "Unable to open file " << argv[1] << std::endl;
+        return 1;
+    }
 
-    int avail[R] = {3, 3, 2};
+    // int proc[] = {0, 1, 2, 3, 4};   // Names of processes
+
+    // int max[P][R] = {
+    //     {7, 5, 3}, 
+    //     {3, 2, 2}, 
+    //     {9, 0, 2}, 
+    //     {2, 2, 2}, 
+    //     {4, 3, 3} };
+
+    // int alloc[P][R] = { 
+    //     {0, 1, 0}, 
+    //     {2, 0, 0}, 
+    //     {3, 0, 2}, 
+    //     {2, 1, 1}, 
+    //     {0, 0, 2} };
+
+    // int avail[R] = {3, 3, 2};
+
+
+    int proc[P];
+    int max[P][R];
+    int alloc[P][R];
+    int avail[R];
+
+    // Read the input file
+
+    for (int i = 0; i < 5; i++) {
+        inFile >> proc[i];
+        std::cout << proc[i] << " ";
+    }
+
+    for (int i = 0; i < 5; i++) {
+        for (int j = 0; j < 3; j++) {
+            inFile >> max[i][j];
+            std::cout << max[i][j] << " ";
+        }
+    }
+
+    for (int i = 0; i < 5; i++) {
+        for (int j = 0; j < 3; j++) {
+            inFile >> alloc[i][j];
+            std::cout << alloc[i][j] << " ";
+        }
+    }
+
+    for (int i = 0; i < 3; i++) {
+        inFile >> avail[i];
+        std::cout << avail[i] << " ";
+    }
 
     isSafe(proc, max, alloc, avail);
     
+    inFile.close();
+
     return 0;
 
 }
