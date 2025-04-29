@@ -96,26 +96,22 @@ int main(int argc, char *argv[]) {
 
     for (int i = 0; i < 5; i++) {
         inFile >> proc[i];
-        std::cout << proc[i] << " ";
     }
 
     for (int i = 0; i < 5; i++) {
         for (int j = 0; j < 3; j++) {
             inFile >> max[i][j];
-            std::cout << max[i][j] << " ";
         }
     }
 
     for (int i = 0; i < 5; i++) {
         for (int j = 0; j < 3; j++) {
             inFile >> alloc[i][j];
-            std::cout << alloc[i][j] << " ";
         }
     }
 
     for (int i = 0; i < 3; i++) {
         inFile >> avail[i];
-        std::cout << avail[i] << " ";
     }
 
     isSafe(proc, max, alloc, avail);
